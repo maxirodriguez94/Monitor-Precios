@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\SocialiteController;
 use Illuminate\Support\Facades\Route;
@@ -30,3 +30,7 @@ Route::get('/login/{provider}/callback', [SocialiteController::class, 'handlePro
 Route::get('/location', [LocationController::class, 'index']);
 Route::post('/location', [LocationController::class, 'store']);
 Route::delete('/location/{location}', [LocationController::class, 'destroy']);
+
+Route::get('/items', [ItemController::class, 'index']);
+Route::post('/items', [ItemController::class, 'store']);
+Route::delete('/items/{item}', [ItemController::class, 'destroy']);
