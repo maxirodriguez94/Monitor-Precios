@@ -24,7 +24,7 @@ class User extends Authenticatable
         'facebook_id',
         'avatar',
         'nick',
-        'google_plus_id'
+        'google_id'
     ];
 
     /**

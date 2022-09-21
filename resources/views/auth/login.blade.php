@@ -76,16 +76,16 @@
                         <div class="col-md-12 text-center">
                             <div class="btn-group-vertical">
 
-                                <a href="{{ route('login.facebook') }}" class="btn btn-primary btn-block">
+                                <a href="{{ url('login/facebook') }}" class="btn btn-primary btn-block">
                                     <i class="fa-brands fa-facebook"></i>
                                     Ingresar usando Facebook
                                 </a>
-                                <a href="{{ route('login.google') }}" class="btn btn-danger btn-block">
+                                <a href="{{ url('login/google') }}" class="btn btn-danger btn-block">
                                     <i class="fa-brands fa-google-plus-g"></i>
                                     Ingresar usando Goggle +
                                 </a>
 
-                                <a href="#" class="btn btn-dark btn-block">
+                                <a href={{ route('register') }} class="btn btn-dark btn-block">
                                     <i class="fa-solid fa-envelope"></i>
                                     Registro mediante correo
                                 </a>

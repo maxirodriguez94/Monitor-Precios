@@ -6,12 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Laravel\Socialite\Facades\Socialite;
 
+
 class SocialiteController extends Controller
 {
 
-    public function redirectToProvider()
+    private $availableDrivers = [
+        'facebook',  'google'
+    ];
+
+    public function redirectToProvider($provider)
     {
-        return Socialite::driver('facebook')->redirect();
+        if (!in_array($provider, $this->availableDrivers)) {
+            return redirect()->route('login');
+        }
+
+        return Socialite::driver($provider)->redirect();
     }
 
     /**
@@ -19,51 +28,39 @@ class SocialiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback()
+    public function handleProviderCallback($provider)
     {
-        $userFacebook = Socialite::driver('facebook')->stateless()->user();
+        if (!in_array($provider, $this->availableDrivers)) {
+            return redirect()->route('login');
+        }
 
-        $user = User::where('email', $userFacebook->getEmail())->first();
-        if (!$user) {
+        $userSocialite = Socialite::driver($provider)->stateless()->user();
+
+        if ($userSocialite->getEmail()) {
+            $user = User::where('email', $userSocialite->getEmail())->first();
+        } else {
+            $user = User::where($provider . '_id', $userSocialite->getId())->first();
+        }
+
+        if ($user) {
+            $user->update([
+                'name' => $userSocialite->getName(),
+                $provider . '_id' => $userSocialite->getId(),
+                'avatar' => $userSocialite->getAvatar(),
+                'nick' => $userSocialite->getNickname(),
+            ]);
+        } else {
             $user = User::create([
-                'name' => $userFacebook->getName(),
-                'email' => $userFacebook->getEmail(),
+                'name' => $userSocialite->getName(),
+                'email' => $userSocialite->getEmail(),
                 'password' => '',
-                'facebook_id' => $userFacebook->getId(),
-                'avatar' => $userFacebook->getAvatar(),
-                'nick' => $userFacebook->getNickname(),
+                $provider . '_id' => $userSocialite->getId(),
+                'avatar' => $userSocialite->getAvatar(),
+                'nick' => $userSocialite->getNickname(),
             ]);
         }
 
-        auth()->login($user, true);
-        return redirect()->route('home');
-    }
 
-    public function redirectGoogleProvider()
-    {
-        return Socialite::driver('google')->redirect();
-    }
-
-    /**
-     * Obtain the user information from GitHub.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function handleGoogleProviderCallback()
-    {
-        $userGoogle = Socialite::driver('google')->stateless()->user();
-
-        $user = User::where('email', $userGoogle->getEmail())->first();
-        if (!$user) {
-            $user = User::create([
-                'name' => $userGoogle->getName(),
-                'email' => $userGoogle->getEmail(),
-                'password' => '',
-                'google_plus_id' => $userGoogle->getId(),
-                'avatar' => $userGoogle->getAvatar(),
-                'nick' => $userGoogle->getNickname(),
-            ]);
-        }
 
         auth()->login($user, true);
         return redirect()->route('home');

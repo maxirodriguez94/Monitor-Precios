@@ -23,8 +23,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/login/facebook', [SocialiteController::class, 'redirectToProvider'])->name('login.facebook');
-Route::get('/login/facebook/callback', [SocialiteController::class, 'handleProviderCallback']);
-
-Route::get('/login/google', [SocialiteController::class, 'redirectGoogleProvider'])->name('login.google');
-Route::get('/login/google/callback', [SocialiteController::class, 'handleGoogleProviderCallback']);
+Route::get('/login/{provider}', [SocialiteController::class, 'redirectToProvider']);
+Route::get('/login/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
