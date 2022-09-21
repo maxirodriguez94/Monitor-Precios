@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SocialiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +23,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/login/facebook', [LoginController::class, 'redirectToProvider'])->name('login.facebook');
-Route::get('/login/facebook/callback', [LoginController::class, 'handleProviderCallback']);
+Route::get('/login/facebook', [SocialiteController::class, 'redirectToProvider'])->name('login.facebook');
+Route::get('/login/facebook/callback', [SocialiteController::class, 'handleProviderCallback']);
+
+Route::get('/login/google', [SocialiteController::class, 'redirectGoogleProvider'])->name('login.google');
+Route::get('/login/google/callback', [SocialiteController::class, 'handleGoogleProviderCallback']);

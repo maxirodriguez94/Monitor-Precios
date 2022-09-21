@@ -80,11 +80,7 @@
                                     <i class="fa-brands fa-facebook"></i>
                                     Ingresar usando Facebook
                                 </a>
-                                <a href="#" class="btn btn-info btn-block">
-                                    <i class="fa-brands fa-twitter-square"></i>
-                                    Ingresar usando Twiter
-                                </a>
-                                <a href="#" class="btn btn-danger btn-block">
+                                <a href="{{ route('login.google') }}" class="btn btn-danger btn-block">
                                     <i class="fa-brands fa-google-plus-g"></i>
                                     Ingresar usando Goggle +
                                 </a>
