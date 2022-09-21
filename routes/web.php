@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\SocialiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/login/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('/login/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
+
+Route::get('/location', [LocationController::class, 'index']);
+Route::post('/location', [LocationController::class, 'store']);
+Route::delete('/location/{location}', [LocationController::class, 'destroy']);
