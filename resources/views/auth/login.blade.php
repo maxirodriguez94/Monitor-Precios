@@ -65,6 +65,10 @@
                             </div>
                         </div>
                     </form>
+
+                    <a href="{{ route('login.facebook')}}" class="btn btn-info">
+                        Ingresar usando Facebook
+                    </a>
                 </div>
             </div>
         </div>

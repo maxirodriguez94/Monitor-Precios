@@ -33,7 +33,7 @@ return [
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => 'https://richmond-km-distinct-arrested.trycloudflare.com/login/facebook/callback',
+        'redirect' => 'https://latest-specialty-performer-shed.trycloudflare.com/login/facebook/callback',
     ],
 
 ];
