@@ -8,11 +8,19 @@ use Illuminate\Support\Facades\Redirect;
 
 class ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::paginate(5);
-        
-        return view('items.index')->with('items', $items);
+        $search = $request->input('search');
+        if ($search) {
+            $query = '%' . $search . '%';
+            $items = Item::where('name', 'like', $query)->orderBy('name')->paginate(5);
+        } else {
+            $items = Item::orderBy('name')->paginate(5);
+        }
+
+        return view('items.index')
+            ->with('items', $items)
+            ->with('search', $search);
     }
 
     public function store(Request $request)
