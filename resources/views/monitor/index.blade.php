@@ -30,9 +30,14 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->lowestValue($startDate, $endDate) }}</td>
                                         <td>
-                                            <button class="btn btn-primary">
-                                                Ver detalles
-                                            </button>
+                                            <a href="{{ route('monitor', [
+                                                'search' => $search,
+                                                'page' => $items->currentPage(),
+                                                'item_id' => $item->id
+                                            ]) }}"
+                                                class="btn btn-primary">
+                                                Ver Detalles
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -43,6 +48,7 @@
                     </div>
                 </div>
 
+                @if(count($prices) > 0)
                 <div class="card mt-4">
                     <div class="card-header">{{ __('Detalles del item seleccionado') }}</div>
                     <div class="card-body">
@@ -81,7 +87,9 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
+
     </div>
 @endsection

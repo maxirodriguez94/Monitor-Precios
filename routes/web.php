@@ -43,7 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/prices', [PriceController::class, 'store']);
    /*  Route::post('/locations', [LocationController::class, 'store']);
     Route::delete('/locations/{location}', [LocationController::class, 'destroy']); */
-    Route::get('/monitor', [MonitorController::class, 'index']);
+    Route::get('/monitor', [MonitorController::class, 'index'])->name('monitor');
 
 
 });

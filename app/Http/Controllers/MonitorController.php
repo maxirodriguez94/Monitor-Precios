@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Price;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -21,8 +22,17 @@ class MonitorController extends Controller
         $prices = [];
 
         $endDate = Carbon::now();
-        
+
         $startDate = Carbon::now()->subDays(7);
+
+        $item_id = $request->input('item_id');
+        if($item_id) {
+            $prices = Price::where('item_id',  $item_id)
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->get();
+        } else{
+            $prices = [];
+        }
 
         return view('monitor.index')
         ->with('search', $search)
