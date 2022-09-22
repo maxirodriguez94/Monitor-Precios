@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
+use App\Models\Location;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $locations = Location::all();
+        $items  =Item::all();
+
+        return view('home')
+        ->with('locations', $locations)
+        ->with('items', $items);
     }
 }
