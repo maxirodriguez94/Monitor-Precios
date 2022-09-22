@@ -28,9 +28,9 @@ Route::get('/login/{provider}', [SocialiteController::class, 'redirectToProvider
 Route::get('/login/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
-    Route::get('/location', [LocationController::class, 'index']);
-    Route::post('/location', [LocationController::class, 'store']);
-    Route::delete('/location/{location}', [LocationController::class, 'destroy']);
+    Route::get('/locations', [LocationController::class, 'index']);
+    Route::post('/locations', [LocationController::class, 'store']);
+    Route::delete('/locations/{location}', [LocationController::class, 'destroy']);
 
     Route::get('/items', [ItemController::class, 'index']);
     Route::post('/items', [ItemController::class, 'store']);

@@ -67,10 +67,22 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @if (auth()->user()->is_admin)
+                                    <a href="{{url('/locations')}}" class="dropdown-item">
+                                        Ubicaciones
+                                    </a>
+                                    <a href="{{url('/items')}}" class="dropdown-item">
+                                        Items
+                                    </a>
+                                    @endif
+
+                                    <a href="{{url('/monitor')}}" class="dropdown-item">
+                                        Monitor
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Cerrar sesion') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

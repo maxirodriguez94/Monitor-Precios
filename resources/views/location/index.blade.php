@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Ubicaciones') }}</div>
                     {{ csrf_field() }}
                     <div class="card-body">
-                        <form action="{{ url('/location') }}" method="post">
+                        <form action="{{ url('/locations') }}" method="post">
                             <div class="form-group">
                                 <label for="name">Ubicacion</label>
                                 <input type="text" name="name" id="name" class="form-control">
@@ -26,7 +26,7 @@
                                     <tr>
                                         <td>{{ $location->name }}</td>
                                         <td>
-                                            <form action="{{ url('/location/' . $location->id) }}" method="post">
+                                            <form action="{{ url('/locations/' . $location->id) }}" method="post">
                                                 {{ method_field('delete') }}
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-danger">
