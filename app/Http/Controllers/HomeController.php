@@ -28,7 +28,7 @@ class HomeController extends Controller
     {
         $locations = Location::all();
         $items  = Item::all();
-        $prices = Price::all();
+        $prices = Price::where('user_id', auth()->id())->orderBy('created_at', 'desc')->take(10)->get();
 
         return view('home')
             ->with('locations', $locations)

@@ -56,10 +56,12 @@
                             </thead>
                             <tbody>
                                 @foreach ($prices as $price )
-                                <td>{{$price->item_id}}</td>
-                                <td>{{$price->location_id}}</td>
+                                <tr>
+                                <td>{{$price->item->name}}</td>
+                                <td>{{$price->location->name}}</td>
                                 <td>{{$price->value}}</td>
                                 <td>{{$price->created_at}}</td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
