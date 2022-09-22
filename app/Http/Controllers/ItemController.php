@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Price;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -31,7 +32,10 @@ class ItemController extends Controller
 
     public function destroy(Item $item)
     {
-        $item->delete();
+        if (Price::where('item_id', $item->id)->exists())
+            $item->delete();
+        else
+            $item->forceDelete();
         return Redirect::back();
     }
 }
