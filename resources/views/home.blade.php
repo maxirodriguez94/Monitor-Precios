@@ -8,7 +8,9 @@
                     <div class="card-header">{{ __('Cargar Valores') }}</div>
 
                     <div class="card-body">
-                        <form action="" method="post">
+                        <form action="{{ url('prices') }}" method="post">
+                            {{ csrf_field() }}
+
                             <div class="form-group">
                                 <label for="location">Ubicacion</label>
                                 <select name="location_id" id="location" class="form-control">
@@ -26,8 +28,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="">Valor a cargar</label>
-                                <input type="text" class="form-control" placeholder="00.00">
+                                <label for="value">Valor a cargar</label>
+                                <input type="text" class="form-control" id="value" name="value" placeholder="00.00">
                             </div>
                             <div class="form-group">
                                 <label for="date">Fecha actual</label>
@@ -53,7 +55,12 @@
                                 <th>Fecha carga</th>
                             </thead>
                             <tbody>
-
+                                @foreach ($prices as $price )
+                                <td>{{$price->item_id}}</td>
+                                <td>{{$price->location_id}}</td>
+                                <td>{{$price->value}}</td>
+                                <td>{{$price->created_at}}</td>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
