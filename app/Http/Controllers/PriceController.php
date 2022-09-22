@@ -16,4 +16,10 @@ class PriceController extends Controller
 
         return Redirect::back();
     }
+
+    public function destroy(Price $price)
+    {
+        $price->destroy($price);
+        return Redirect::back();
+    }
 }

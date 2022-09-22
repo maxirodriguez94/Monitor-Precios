@@ -59,7 +59,9 @@
                                     <th>Ubicacion</th>
                                     <th>Valor Cargado</th>
                                     <th>Fecha de carga</th>
+                                    @if (auth()->user()->is_admin)
                                     <th>Opciones</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,7 +71,7 @@
                                         <td>{{ $price->location->name }}</td>
                                         <td>{{ $price->value }}</td>
                                         <td>{{ $price->created_at }}</td>
-                                        <td>{{ 0 }}</td>
+                                        @if (auth()->user()->is_admin)
                                         <td>
                                             <form action="{{ url('/prices/' . $price->id) }}" method="post">
                                                 {{ method_field('delete') }}
@@ -79,6 +81,7 @@
                                                 </button>
                                             </form>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
