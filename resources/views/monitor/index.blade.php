@@ -33,7 +33,7 @@
                                             <a href="{{ route('monitor', [
                                                 'search' => $search,
                                                 'page' => $items->currentPage(),
-                                                'item_id' => $item->id
+                                                'item_id' => $item->id,
                                             ]) }}"
                                                 class="btn btn-primary">
                                                 Ver Detalles
@@ -48,47 +48,47 @@
                     </div>
                 </div>
 
-                @if(count($prices) > 0)
-                <div class="card mt-4">
-                    <div class="card-header">{{ __('Detalles del item seleccionado') }}</div>
-                    <div class="card-body">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Usuario</th>
-                                    <th>Ubicacion</th>
-                                    <th>Valor Cargado</th>
-                                    <th>Fecha de carga</th>
-                                    @if (auth()->user()->is_admin)
-                                    <th>Opciones</th>
-                                    @endif
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($prices as $price)
+                @if (count($prices) > 0)
+                    <div class="card mt-4">
+                        <div class="card-header">{{ __('Detalles del item seleccionado') }}</div>
+                        <div class="card-body">
+                            <table class="table table-hover">
+                                <thead>
                                     <tr>
-                                        <td>{{ $price->user->name }}</td>
-                                        <td>{{ $price->location->name }}</td>
-                                        <td>{{ $price->value }}</td>
-                                        <td>{{ $price->created_at }}</td>
+                                        <th>Usuario</th>
+                                        <th>Ubicacion</th>
+                                        <th>Valor Cargado</th>
+                                        <th>Fecha de carga</th>
                                         @if (auth()->user()->is_admin)
-                                        <td>
-                                            <form action="{{ url('/prices/' . $price->id) }}" method="post">
-                                                {{ method_field('delete') }}
-                                                {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-danger">
-                                                    Eliminar
-                                                </button>
-                                            </form>
-                                        </td>
+                                            <th>Opciones</th>
                                         @endif
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($prices as $price)
+                                        <tr>
+                                            <td>{{ $price->user->name }}</td>
+                                            <td>{{ $price->location->name }}</td>
+                                            <td>{{ $price->value }}</td>
+                                            <td>{{ $price->created_at }}</td>
+                                            @if (auth()->user()->is_admin)
+                                                <td>
+                                                    <form action="{{ url('/prices/' . $price->id) }}" method="post">
+                                                        {{ method_field('delete') }}
+                                                        {{ csrf_field() }}
+                                                        <button type="submit" class="btn btn-danger">
+                                                            Eliminar
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
 
+                        </div>
                     </div>
-                </div>
             </div>
             @endif
         </div>

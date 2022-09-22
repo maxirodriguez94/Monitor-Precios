@@ -42,8 +42,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::post('/prices', [PriceController::class, 'store']);
     Route::delete('/prices/{prices}', [PriceController::class, 'destroy']);
-    
+
     Route::get('/monitor', [MonitorController::class, 'index'])->name('monitor');
-
-
 });
