@@ -28,7 +28,7 @@
                                 @foreach ($items as $item)
                                     <tr>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ 0 }}</td>
+                                        <td>{{ $item->lowestValue($startDate, $endDate) }}</td>
                                         <td>
                                             <button class="btn btn-primary">
                                                 Ver detalles
