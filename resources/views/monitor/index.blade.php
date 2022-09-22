@@ -48,11 +48,15 @@
                     </div>
                 </div>
 
-                @if (count($prices) > 0)
+
                     <div class="card mt-4">
                         <div class="card-header">{{ __('Detalles del item seleccionado') }}</div>
+
                         <div class="card-body">
-                            <table class="table table-hover">
+                            <a href="{{ url('items/' . $item_id . '/prices') }}" class="btn btn-success">
+                                Descargar como Excel
+                            </a>
+                            <table class="table table-hover mt-2">
                                 <thead>
                                     <tr>
                                         <th>Usuario</th>
@@ -90,7 +94,7 @@
                         </div>
                     </div>
             </div>
-            @endif
+
         </div>
     </div>
 

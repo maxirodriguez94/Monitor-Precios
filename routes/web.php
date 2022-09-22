@@ -37,6 +37,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/items', [ItemController::class, 'index']);
     Route::post('/items', [ItemController::class, 'store']);
     Route::delete('/items/{item}', [ItemController::class, 'destroy']);
+
+    Route::get('/items/{item}/prices', [PriceController::class, 'download']);
 });
 
 Route::group(['middleware' => ['auth']], function () {
@@ -44,4 +46,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/prices/{prices}', [PriceController::class, 'destroy']);
 
     Route::get('/monitor', [MonitorController::class, 'index'])->name('monitor');
+
 });

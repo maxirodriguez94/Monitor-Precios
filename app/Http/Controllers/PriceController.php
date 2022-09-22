@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PricesExport;
+use App\Models\Item;
 use App\Models\Price;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-
+use Excel;
 class PriceController extends Controller
 {
     public function store(Request $request)
@@ -21,5 +23,12 @@ class PriceController extends Controller
     {
         $price->destroy($price);
         return Redirect::back();
+    }
+
+    public function download(Item $item)
+    {
+        $filename = "Detalles del item $item->name.xlsx";
+        $export = new PricesExport($item->id);
+        return Excel::download($export, $filename);
     }
 }

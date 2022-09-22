@@ -39,6 +39,7 @@ class MonitorController extends Controller
             ->with('items', $items)
             ->with('prices', $prices)
             ->with('endDate', $endDate)
-            ->with('startDate', $startDate);
+            ->with('startDate', $startDate)
+            ->with('item_id', $item_id);
     }
 }
