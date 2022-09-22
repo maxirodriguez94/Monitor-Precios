@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\SocialiteController;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/prices', [PriceController::class, 'store']);
    /*  Route::post('/locations', [LocationController::class, 'store']);
     Route::delete('/locations/{location}', [LocationController::class, 'destroy']); */
+    Route::get('/monitor', [MonitorController::class, 'index']);
 
 
 });
