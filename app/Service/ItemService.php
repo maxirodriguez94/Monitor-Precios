@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Service;
 
 use App\Models\Item;
 use App\Repository\ItemRepository;
 use App\Repository\PriceRepository;
 
-class ItemServices
+class ItemService
 {
     public function __construct(
         ItemRepository $itemRepository,
@@ -28,14 +28,14 @@ class ItemServices
 
     public function destroyItem(Object $item)
     {
-        if ($this->priceRepository->associatedPriceByitem($item))
+        if ($this->priceRepository->associatedPriceByItem($item))
             return $this->itemRepository->delete($item);
         else
             return $this->itemRepository->forceDelete($item);
     }
 
-    public function updateItem(array $data)
+    public function updateItem(array $data, Item $item)
     {
-        return $this->itemRepository->update($data);
+        return $this->itemRepository->update($data, $item);
     }
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreItemRequest;
-use App\Services\ItemServices;
+
 use App\Models\Item;
-use App\Models\Price;
+use App\Service\ItemService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Redirect;
 class ItemController extends Controller
 {
 
-    public function __construct(ItemServices $itemService)
+    public function __construct(ItemService $itemService)
     {
-        $this->itemServices = $itemService;
+        $this->itemService = $itemService;
     }
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $items = $this->itemServices->showItem($search);
+        $items = $this->itemService->showItem($search);
         return view('items.index')
             ->with('items', $items)
             ->with('search', $search);
@@ -29,14 +29,14 @@ class ItemController extends Controller
     public function store(StoreItemRequest $request)
     {
         $item = $request->all();
-        $this->itemServices->storeItem($item);
+        $this->itemService->storeItem($item);
 
         return Redirect::back();
     }
 
     public function destroy(Item $item)
     {
-        $this->itemServices->destroyItem($item);
+        $this->itemService->destroyItem($item);
         return Redirect::back();
     }
 
@@ -47,7 +47,8 @@ class ItemController extends Controller
 
     public function update(Request $request, Item $item)
     {
-        $this->itemServices->updateItem($item);
+        $data = $request->all();
+        $this->itemService->updateItem($data, $item);
         return redirect('/items');
     }
 }

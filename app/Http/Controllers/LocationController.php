@@ -6,29 +6,38 @@ use App\Http\Requests\StoreLocationRequest;
 use App\Http\Requests\UpdateLocationRequest;
 use App\Models\Location;
 use App\Models\Price;
-use Illuminate\Http\Request;
+use App\Repository\PriceRepository;
+use App\Service\LocationService;
 use Illuminate\Support\Facades\Redirect;
 
 class LocationController extends Controller
 {
+    public function __construct(
+        LocationService $locationService,
+        PriceRepository $priceRepository
+    ) {
+        $this->locationService = $locationService;
+        $this->priceRepository = $priceRepository;
+    }
     public function index()
     {
-        $locations = Location::all();
+        $locations= $this->locationService->showLocation();
         return view('location.index')->with('locations', $locations);
     }
 
     public function store(StoreLocationRequest $request)
     {
-        Location::create($request->all());
+        $data = $request->all();
+        $this->locationService->storeLocation($data);
         return Redirect::back();
     }
 
     public function destroy(Location $location)
     {
-        if (Price::where('location_id', $location->id)->exists())
-            $location->delete();
+        if ($this->priceRepository->associatedPriceByLocation($location))
+            $this->locationService->deleteLocation($location);
         else
-            $location->forceDelete();
+           $this->locationService->forceDeleteLocation($location);
         return Redirect::back();
     }
 
@@ -39,7 +48,8 @@ class LocationController extends Controller
 
     public function update(UpdateLocationRequest $request, Location $location)
     {
-        $location->update($request->only('name'));
+        $data = $request->all();
+        $this->locationService->updateLocation($data, $location);
         return redirect('/locations');
     }
 }

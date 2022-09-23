@@ -32,8 +32,8 @@ class ItemRepository
         $item->forceDelete();
     }
 
-    public function update(Object $item)
+    public function update(array $data, Item $item)
     {
-        return $item->update($item('name'));
+        $item->update($data);
     }
 }
