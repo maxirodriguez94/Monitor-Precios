@@ -8,6 +8,18 @@
                     <div class="card-header">{{ __('Cargar Valores') }}</div>
 
                     <div class="card-body">
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         <form action="{{ url('prices') }}" method="post">
                             {{ csrf_field() }}
 
@@ -29,7 +41,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="value">Valor a cargar</label>
-                                <input type="text" class="form-control" id="value" name="value" placeholder="00.00">
+                                <input type="text" class="form-control" id="value" name="value"
+                                    placeholder="00.00">
                             </div>
                             <div class="form-group">
                                 <label for="date">Fecha actual</label>
@@ -55,13 +68,13 @@
                                 <th>Fecha carga</th>
                             </thead>
                             <tbody>
-                                @foreach ($prices as $price )
-                                <tr>
-                                <td>{{$price->item->name}}</td>
-                                <td>{{$price->location->name}}</td>
-                                <td>{{$price->value}}</td>
-                                <td>{{$price->created_at}}</td>
-                                </tr>
+                                @foreach ($prices as $price)
+                                    <tr>
+                                        <td>{{ $price->item->name }}</td>
+                                        <td>{{ $price->location->name }}</td>
+                                        <td>{{ $price->value }}</td>
+                                        <td>{{ $price->created_at }}</td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

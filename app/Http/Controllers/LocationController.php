@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLocationRequest;
+use App\Http\Requests\UpdateLocationRequest;
 use App\Models\Location;
 use App\Models\Price;
 use Illuminate\Http\Request;
@@ -15,7 +17,7 @@ class LocationController extends Controller
         return view('location.index')->with('locations', $locations);
     }
 
-    public function store(Request $request)
+    public function store(StoreLocationRequest $request)
     {
         Location::create($request->all());
         return Redirect::back();
@@ -35,7 +37,7 @@ class LocationController extends Controller
         return view('location.edit')->with('location', $location);
     }
 
-    public function update(Request $request, Location $location)
+    public function update(UpdateLocationRequest $request, Location $location)
     {
         $location->update($request->only('name'));
         return redirect('/locations');

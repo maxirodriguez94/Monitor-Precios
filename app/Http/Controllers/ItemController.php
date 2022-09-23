@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreItemRequest;
 use App\Models\Item;
 use App\Models\Price;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class ItemController extends Controller
             ->with('search', $search);
     }
 
-    public function store(Request $request)
+    public function store(StoreItemRequest $request)
     {
         Item::create($request->all());
         return Redirect::back();
@@ -41,13 +42,11 @@ class ItemController extends Controller
 
     public function edit(Item $item)
     {
-        dd($item);
         return view('items.edit')->with('item', $item);
     }
 
     public function update(Request $request, Item $Item)
     {
-        dd('a');
         $Item->update($request->only('name'));
         return redirect('/items');
     }

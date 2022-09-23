@@ -8,6 +8,16 @@
                     <div class="card-header">{{ __('Ubicaciones') }}</div>
                     {{ csrf_field() }}
                     <div class="card-body">
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <form action="{{ url('/locations') }}" method="post">
                             <div class="form-group">
                                 <label for="name">Ubicacion</label>
