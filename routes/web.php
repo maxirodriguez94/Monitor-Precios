@@ -33,10 +33,14 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/locations', [LocationController::class, 'index']);
     Route::post('/locations', [LocationController::class, 'store']);
     Route::delete('/locations/{location}', [LocationController::class, 'destroy']);
+    Route::get('/locations/{location}', [LocationController::class, 'edit']);
+    Route::put('/locations/{location}', [LocationController::class, 'update']);
 
     Route::get('/items', [ItemController::class, 'index']);
     Route::post('/items', [ItemController::class, 'store']);
     Route::delete('/items/{item}', [ItemController::class, 'destroy']);
+    Route::get('/items/{item}', [ItemController::class, 'edit']);
+    Route::put('/items/{item}', [ItemController::class, 'update']);
 
     Route::get('/items/{item}/prices', [PriceController::class, 'download']);
 });

@@ -26,9 +26,12 @@
                                     <tr>
                                         <td>{{ $location->name }}</td>
                                         <td>
+
                                             <form action="{{ url('/locations/' . $location->id) }}" method="post">
                                                 {{ method_field('delete') }}
                                                 {{ csrf_field() }}
+                                                <a href="{{ url('/locations/' . $location->id) }}" class="btn btn-info">
+                                                    Editar</a>
                                                 <button type="submit" class="btn btn-danger">
                                                     Eliminar
                                                 </button>

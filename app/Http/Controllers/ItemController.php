@@ -38,4 +38,17 @@ class ItemController extends Controller
             $item->forceDelete();
         return Redirect::back();
     }
+
+    public function edit(Item $item)
+    {
+        dd($item);
+        return view('items.edit')->with('item', $item);
+    }
+
+    public function update(Request $request, Item $Item)
+    {
+        dd('a');
+        $Item->update($request->only('name'));
+        return redirect('/items');
+    }
 }

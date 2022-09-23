@@ -29,4 +29,15 @@ class LocationController extends Controller
             $location->forceDelete();
         return Redirect::back();
     }
+
+    public function edit(Location $location)
+    {
+        return view('location.edit')->with('location', $location);
+    }
+
+    public function update(Request $request, Location $location)
+    {
+        $location->update($request->only('name'));
+        return redirect('/locations');
+    }
 }
