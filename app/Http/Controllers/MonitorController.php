@@ -4,35 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Price;
+use App\Service\ItemService;
+use App\Service\PriceService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 class MonitorController extends Controller
 {
+    public function __construct(ItemService $itemService, PriceService $priceService)
+    {
+        $this->itemService = $itemService;
+        $this->priceService = $priceService;
+    }
     public function index(Request $request)
     {
         $search = $request->input('search');
-        if ($search) {
-            $query = '%' . $search . '%';
-            $items = Item::where('name', 'like', $query)->orderBy('name')->paginate(5);
-        } else {
-            $items = Item::orderBy('name')->paginate(5);
-        }
 
-        $prices = [];
+        $items = $this->itemService->showItem($search);
 
         $endDate = Carbon::now();
-
         $startDate = Carbon::now()->subDays(7);
 
         $item_id = $request->input('item_id');
-        if ($item_id) {
-            $prices = Price::where('item_id',  $item_id)
-                ->whereBetween('created_at', [$startDate, $endDate])
-                ->get();
-        } else {
-            $prices = [];
-        }
+
+        $prices = $this->priceService->showPrices($item_id, $startDate, $endDate);
 
         return view('monitor.index')
             ->with('search', $search)

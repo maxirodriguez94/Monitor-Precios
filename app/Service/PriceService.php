@@ -3,8 +3,10 @@
 namespace App\Service;
 
 use App\Exports\PricesExport;
+use App\Models\Item;
 use App\Models\Price;
 use App\Repository\PriceRepository;
+use DateTime;
 use Excel;
 
 class PriceService
@@ -24,10 +26,24 @@ class PriceService
         return $this->priceRepository->destroy($price);
     }
 
-    public function downloadItem($item)
+    public function downloadItem(Item $item)
     {
         $filename = "Detalles del item $item->name.xlsx";
         $export = new PricesExport($item->id);
         return Excel::download($export, $filename);
     }
+
+    public function showPrices(?int $item_id, DateTime $startDate, DateTime $endDate)
+    {
+        if ($item_id) {
+            $prices = Price::where('item_id',  $item_id)
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->get();
+        } else {
+            $prices = [];
+        }
+        return $prices;
+    }
+
+
 }
