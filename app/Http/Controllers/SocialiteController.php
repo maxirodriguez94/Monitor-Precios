@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Service\UserService;
 use Laravel\Socialite\Facades\Socialite;
 
 
 class SocialiteController extends Controller
 {
-
     private $availableDrivers = [
         'facebook',  'google'
     ];
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
 
     public function redirectToProvider($provider)
     {
@@ -36,31 +41,13 @@ class SocialiteController extends Controller
 
         $userSocialite = Socialite::driver($provider)->stateless()->user();
 
-        if ($userSocialite->getEmail()) {
-            $user = User::where('email', $userSocialite->getEmail())->first();
-        } else {
-            $user = User::where($provider . '_id', $userSocialite->getId())->first();
-        }
+        $user = $this->userService->findUserForSocialite($userSocialite, $provider);
 
         if ($user) {
-            $user->update([
-                'name' => $userSocialite->getName(),
-                $provider . '_id' => $userSocialite->getId(),
-                'avatar' => $userSocialite->getAvatar(),
-                'nick' => $userSocialite->getNickname(),
-            ]);
+            $user = $this->userService->userSocialiteUpdate($userSocialite, $user, $provider);
         } else {
-            $user = User::create([
-                'name' => $userSocialite->getName(),
-                'email' => $userSocialite->getEmail(),
-                'password' => '',
-                $provider . '_id' => $userSocialite->getId(),
-                'avatar' => $userSocialite->getAvatar(),
-                'nick' => $userSocialite->getNickname(),
-            ]);
+            $user = $this->userService->userSocialiteCreate($userSocialite, $provider);
         }
-
-
 
         auth()->login($user, true);
         return redirect()->route('home');

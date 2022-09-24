@@ -49,6 +49,4 @@ class PriceService
     {
         return $this->priceRepository->findByUser();
     }
-
-
 }

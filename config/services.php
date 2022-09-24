@@ -33,13 +33,13 @@ return [
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => 'https://belkin-suggests-quick-miscellaneous.trycloudflare.com/login/facebook/callback',
+        'redirect' => 'https://example.com/login/facebook/callback',
     ],
 
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => 'https://belkin-suggests-quick-miscellaneous.trycloudflare.com/login/google/callback',
+        'redirect' => 'https://example.com/login/google/callback',
     ],
 
 ];
