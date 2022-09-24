@@ -45,5 +45,10 @@ class PriceService
         return $prices;
     }
 
+    public function findByUser()
+    {
+        return $this->priceRepository->findByUser();
+    }
+
 
 }

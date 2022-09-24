@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Location;
 use App\Models\Price;
+use App\Service\ItemService;
+use App\Service\LocationService;
+use App\Service\PriceService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,8 +17,15 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(
+        LocationService $locationService,
+        ItemService $itemService,
+        PriceService $priceService,
+    )
     {
+        $this->locationService = $locationService;
+        $this->itemService = $itemService;
+        $this->priceService = $priceService;
         $this->middleware('auth');
     }
 
@@ -26,10 +36,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $locations = Location::all();
-        $items  = Item::all();
-        $prices = Price::where('user_id', auth()->id())->orderBy('created_at', 'desc')->take(10)->get();
-
+        $locations = $this->locationService->showLocation();
+        $items  = $this->itemService->showItem(null);
+        $prices = $this->priceService->findByUser();
+       
         return view('home')
             ->with('locations', $locations)
             ->with('items', $items)

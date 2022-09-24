@@ -30,4 +30,11 @@ class PriceRepository
     {
         $price->delete();
     }
+
+    public function findByUser()
+    {
+        return Price::where('user_id', auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->take(10)->get();
+    }
 }
