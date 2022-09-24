@@ -42,13 +42,12 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/items/{item}', [ItemController::class, 'edit']);
     Route::put('/items/{item}', [ItemController::class, 'update']);
 
-    Route::get('/items/{item}/prices', [PriceController::class, 'download']);
+    Route::get('/items/{item}/prices', [PriceController::class, 'downloadItem']);
 });
 
 Route::group(['middleware' => ['auth']], function () {
     Route::post('/prices', [PriceController::class, 'store']);
-    Route::delete('/prices/{prices}', [PriceController::class, 'destroy']);
+    Route::delete('/prices/{price}', [PriceController::class, 'destroy']);
 
     Route::get('/monitor', [MonitorController::class, 'index'])->name('monitor');
-
 });
