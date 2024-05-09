@@ -1,1 +1,1 @@
-Desarrolli de un monitor de precios! Los usuarios ingresan vía redes sociales, ingresan datos y consultan reportes.
+Desarrollo de un monitor de precios! Los usuarios ingresan vía redes sociales, ingresan datos y consultan reportes.
